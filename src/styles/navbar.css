@@ -1,0 +1,226 @@
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  transition:
+    background-color 0.3s,
+    box-shadow 0.3s;
+}
+
+.navbar.is-scrolled,
+.navbar.is-open {
+  background: rgba(255, 255, 255, 0.88);
+  box-shadow:
+    0 1px 0 var(--line),
+    0 14px 30px -22px rgba(8, 74, 135, 0.45);
+  -webkit-backdrop-filter: saturate(160%) blur(14px);
+  backdrop-filter: saturate(160%) blur(14px);
+}
+
+.navbar__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  height: var(--nav-h);
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  min-width: 0;
+  border-radius: 12px;
+  color: var(--navy);
+  text-decoration: none;
+}
+
+/* The logo file has a white background; multiply lets it sit cleanly on the light navbar. */
+.brand__logo {
+  width: auto;
+  height: 56px;
+  mix-blend-mode: multiply;
+}
+
+.brand__text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.brand__name {
+  color: var(--royal);
+  font-family: var(--font-display);
+  font-size: 1.1875rem;
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.brand__tag {
+  margin-top: 3px;
+  color: var(--muted);
+  font-size: 0.625rem;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.navbar__links {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.navbar__link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding-inline: 0.875rem;
+  border-radius: 999px;
+  color: var(--navy);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition:
+    background-color 0.2s,
+    color 0.2s;
+}
+
+.navbar__link:hover {
+  background: rgba(8, 105, 178, 0.08);
+  color: var(--royal);
+}
+
+.navbar__link[aria-current] {
+  background: rgba(8, 105, 178, 0.1);
+  color: var(--royal);
+}
+
+.navbar__actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.navbar__menu-actions,
+.navbar__toggle {
+  display: none;
+}
+
+@media (max-width: 1023.98px) {
+  .navbar__toggle {
+    display: inline-grid;
+    place-items: center;
+    width: 46px;
+    height: 46px;
+    padding: 0;
+    border: 1.5px solid var(--line-strong);
+    border-radius: 14px;
+    background: #fff;
+    color: var(--navy);
+    cursor: pointer;
+  }
+
+  .navbar__toggle svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .navbar__nav {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: var(--gutter);
+    left: var(--gutter);
+    max-height: calc(100dvh - var(--nav-h) - 24px);
+    padding: 0.75rem;
+    overflow-y: auto;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: #fff;
+    box-shadow: var(--shadow-lg);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-8px);
+    transition:
+      opacity 0.25s var(--ease),
+      transform 0.25s var(--ease),
+      visibility 0s 0.25s;
+  }
+
+  .navbar.is-open .navbar__nav {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    transition-delay: 0s;
+  }
+
+  .navbar__links {
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .navbar__link {
+    width: 100%;
+    min-height: 48px;
+    border-radius: var(--radius-sm);
+    font-size: 1rem;
+  }
+
+  .navbar__menu-actions {
+    display: grid;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--line);
+  }
+}
+
+@media (max-width: 559.98px) {
+  .brand__logo {
+    height: 48px;
+  }
+
+  .brand__name {
+    font-size: 1.0625rem;
+  }
+
+  .navbar__call {
+    width: 46px;
+    min-height: 46px;
+    padding: 0;
+  }
+
+  .navbar__call-label {
+    display: none;
+  }
+}
+
+@media (max-width: 359.98px) {
+  .brand__tag {
+    display: none;
+  }
+}
+
+/* Fixed call and WhatsApp bar on phones */
+.action-bar {
+  display: none;
+}
+
+@media (max-width: 719.98px) {
+  .action-bar {
+    position: fixed;
+    inset: auto 0 0;
+    z-index: 40;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    padding: 10px 12px calc(10px + env(safe-area-inset-bottom));
+    border-top: 1px solid var(--line);
+    background: rgba(255, 255, 255, 0.92);
+    box-shadow: 0 -14px 30px -22px rgba(8, 74, 135, 0.5);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+  }
+}

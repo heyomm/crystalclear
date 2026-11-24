@@ -1,0 +1,332 @@
+.hero {
+  padding: 8px var(--gutter) 0;
+}
+
+.hero__card {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  place-items: center;
+  max-width: 1360px;
+  min-height: clamp(540px, 76vh, 720px);
+  margin-inline: auto;
+  padding: clamp(56px, 8vw, 96px) clamp(20px, 5vw, 64px) clamp(120px, 14vw, 180px);
+  overflow: hidden;
+  border-radius: clamp(24px, 3.2vw, 40px);
+  color: #fff;
+  box-shadow: var(--shadow-lg);
+}
+
+.hero__content {
+  display: grid;
+  justify-items: center;
+  gap: 1.5rem;
+  max-width: 920px;
+  text-align: center;
+}
+
+.hero__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.1);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+
+.hero__eyebrow svg {
+  flex: none;
+  width: 16px;
+  height: 16px;
+  color: var(--aqua-bright);
+}
+
+.hero__title {
+  font-size: clamp(2rem, 4.4vw + 0.7rem, 4rem);
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+}
+
+.hero__title span {
+  color: var(--aqua-bright);
+}
+
+.hero__lead {
+  max-width: 62ch;
+  color: #e4f0fb;
+  font-size: clamp(1rem, 0.4vw + 0.95rem, 1.1875rem);
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.875rem;
+  margin-top: 0.5rem;
+}
+
+.hero__chips {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem 1.5rem;
+  margin-top: 0.5rem;
+  color: #e4f0fb;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.hero__chips li {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.hero__chips li::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--teal);
+  box-shadow: 0 0 0 4px rgba(32, 185, 176, 0.25);
+}
+
+@media (max-width: 559.98px) {
+  .hero__actions {
+    width: 100%;
+  }
+
+  .hero__actions .btn {
+    width: 100%;
+  }
+
+  .hero__eyebrow {
+    font-size: 0.6875rem;
+    letter-spacing: 0.08em;
+  }
+}
+
+/* Animated water backdrop (hero card and final call to action) */
+.backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  border-radius: inherit;
+  background: var(--royal);
+}
+
+.backdrop::before {
+  content: '';
+  position: absolute;
+  inset: -30%;
+  background: linear-gradient(
+    125deg,
+    var(--royal-deep) 12%,
+    var(--royal) 34%,
+    var(--blue) 56%,
+    var(--bright) 76%,
+    #0b93cc 92%
+  );
+  animation: gradient-drift 18s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+.backdrop__glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(70px);
+  animation: glow-float 14s ease-in-out infinite alternate;
+}
+
+.backdrop__glow--teal {
+  top: -18%;
+  right: -8%;
+  width: min(460px, 60vw);
+  aspect-ratio: 1;
+  background: rgba(32, 185, 176, 0.42);
+}
+
+.backdrop__glow--light {
+  bottom: 4%;
+  left: 18%;
+  width: min(380px, 50vw);
+  aspect-ratio: 1;
+  background: rgba(120, 200, 255, 0.28);
+  animation-duration: 19s;
+  animation-direction: alternate-reverse;
+}
+
+.backdrop__rings {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: min(620px, 92vw);
+  aspect-ratio: 1;
+  transform: translate(-42%, -40%);
+  stroke: rgba(255, 255, 255, 0.2);
+  stroke-width: 1.2;
+}
+
+.backdrop__rings circle {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: ring-pulse 8s ease-in-out infinite;
+}
+
+.backdrop__rings circle:nth-child(2) {
+  animation-delay: -2s;
+}
+
+.backdrop__rings circle:nth-child(3) {
+  animation-delay: -4s;
+}
+
+.backdrop__rings circle:nth-child(4) {
+  animation-delay: -6s;
+}
+
+.backdrop__bubble {
+  position: absolute;
+  bottom: 12%;
+  left: var(--x);
+  width: var(--size);
+  height: var(--size);
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.55), rgba(142, 237, 229, 0.12) 60%);
+  opacity: 0;
+  animation: bubble-rise var(--duration) linear var(--delay) infinite;
+}
+
+.backdrop__waves {
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  height: clamp(64px, 10vw, 130px);
+}
+
+.backdrop__waves use {
+  animation: wave-drift 26s cubic-bezier(0.55, 0.5, 0.45, 0.5) infinite;
+}
+
+.backdrop__waves use:nth-child(1) {
+  animation-duration: 13s;
+  animation-delay: -2s;
+}
+
+.backdrop__waves use:nth-child(2) {
+  animation-duration: 17s;
+  animation-delay: -3s;
+}
+
+.backdrop__waves use:nth-child(3) {
+  animation-duration: 21s;
+  animation-delay: -4s;
+}
+
+.backdrop__waves use:nth-child(4) {
+  animation-delay: -5s;
+}
+
+@media (max-width: 639.98px) {
+  .backdrop__glow {
+    filter: blur(48px);
+  }
+
+  .backdrop__bubble:nth-of-type(even) {
+    display: none;
+  }
+}
+
+@keyframes gradient-drift {
+  from {
+    transform: translate3d(-9%, -6%, 0) rotate(-2deg);
+  }
+  to {
+    transform: translate3d(9%, 6%, 0) rotate(2deg);
+  }
+}
+
+@keyframes glow-float {
+  from {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  to {
+    transform: translate3d(-40px, 30px, 0) scale(1.15);
+  }
+}
+
+@keyframes ring-pulse {
+  0%,
+  100% {
+    opacity: 0.45;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes bubble-rise {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 0, 0) scale(0.7);
+  }
+  15% {
+    opacity: 0.8;
+  }
+  70% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(24px, -380px, 0) scale(1.1);
+  }
+}
+
+@keyframes wave-drift {
+  from {
+    transform: translate3d(-90px, 0, 0);
+  }
+  to {
+    transform: translate3d(85px, 0, 0);
+  }
+}
+
+/* Final call to action */
+.final-cta {
+  position: relative;
+  isolation: isolate;
+  padding: clamp(72px, 10vw, 128px) 0 clamp(130px, 15vw, 200px);
+  overflow: hidden;
+  color: #fff;
+  text-align: center;
+}
+
+.final-cta__content {
+  display: grid;
+  justify-items: center;
+  gap: 1.25rem;
+}
+
+.final-cta__title {
+  max-width: 20ch;
+  font-size: clamp(1.875rem, 3vw + 1rem, 3.25rem);
+  letter-spacing: -0.03em;
+}
+
+.final-cta__lead {
+  max-width: 58ch;
+  color: #e4f0fb;
+  font-size: 1.0625rem;
+}
